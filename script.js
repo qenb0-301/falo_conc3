@@ -1,8 +1,8 @@
 const WHATSAPP_PHONE = "7XXXXXXXXXX";
-const BRAND_NAME = "Boston Scientific";
+const BRAND_NAME = "[BRAND_NAME]";
 const MODELS = [
   {
-    name: "AMS 700™",
+    name: "[MODEL_1_NAME]",
     features: [
       "Регулируемый уровень жёсткости",
       "Надёжный контроль в повседневной жизни",
@@ -10,7 +10,7 @@ const MODELS = [
     ],
   },
   {
-    name: "AMS Ambicor™",
+    name: "[MODEL_2_NAME]",
     features: [
       "Двухкомпонентная система",
       "Простота управления",
@@ -18,7 +18,7 @@ const MODELS = [
     ],
   },
   {
-    name: "Spectra™",
+    name: "[MODEL_3_NAME]",
     features: [
       "Полуригидная конструкция",
       "Минимум действий при использовании",
@@ -211,6 +211,33 @@ const setupAccordion = () => {
   });
 };
 
+const setupReveal = () => {
+  const elements = document.querySelectorAll(
+    ".section, .hero-card, .highlight-card, .info-card, .timeline-item, .implant-card, .selection-card, .doctor-card, .accordion-item, .checklist-item, .contact-card"
+  );
+
+  elements.forEach((element) => element.classList.add("reveal"));
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  elements.forEach((element) => observer.observe(element));
+};
+
 const setYear = () => {
   const yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -222,6 +249,7 @@ const init = () => {
   renderDoctors();
   setupCityFilter();
   setupAccordion();
+  setupReveal();
   setYear();
 };
 

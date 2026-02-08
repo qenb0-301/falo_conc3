@@ -1,14 +1,16 @@
 :root {
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --text: #1c1f23;
-  --muted: #5f6b7a;
-  --border: #e1e6eb;
-  --accent: #5b6b7a;
-  --accent-dark: #44505d;
-  --shadow: 0 12px 30px rgba(28, 31, 35, 0.08);
-  --radius: 16px;
-  --radius-sm: 12px;
+  --bg: #141210;
+  --surface: #1f1b18;
+  --surface-soft: #27221f;
+  --text: #f3ede6;
+  --muted: #c2b7ae;
+  --border: rgba(243, 237, 230, 0.12);
+  --accent: #b84a2f;
+  --accent-dark: #8f3824;
+  --shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  --radius: 22px;
+  --radius-sm: 16px;
+  --glow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -21,10 +23,11 @@ html {
 
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
-  background: var(--bg);
+  font-family: "Cygre", "Manrope", "Inter", sans-serif;
+  background: radial-gradient(circle at top, #221e1b 0%, #141210 45%, #100e0c 100%);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 img {
@@ -72,9 +75,9 @@ button {
 .site-header {
   position: sticky;
   top: 0;
-  background: rgba(244, 246, 248, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(20, 18, 16, 0.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   z-index: 10;
 }
 
@@ -88,9 +91,10 @@ button {
 
 .brand {
   font-weight: 600;
-  font-family: "Manrope", sans-serif;
+  font-family: "Cygre", "Manrope", sans-serif;
   font-size: 15px;
   max-width: 420px;
+  color: var(--text);
 }
 
 .nav {
@@ -103,10 +107,13 @@ button {
 .nav a {
   color: var(--muted);
   transition: color 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 999px;
 }
 
 .nav a:hover {
   color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .header-cta {
@@ -115,11 +122,14 @@ button {
 }
 
 .section {
-  padding: 64px 0;
+  padding: 72px 0;
+  position: relative;
 }
 
 .section-muted {
-  background: var(--surface);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .section-heading {
@@ -127,9 +137,9 @@ button {
 }
 
 .section-heading h2 {
-  font-size: clamp(26px, 3vw, 34px);
+  font-size: clamp(28px, 3vw, 40px);
   margin-bottom: 12px;
-  font-family: "Manrope", sans-serif;
+  font-family: "Cygre", "Manrope", sans-serif;
 }
 
 .section-heading p {
@@ -138,7 +148,17 @@ button {
 }
 
 .hero {
-  padding: 96px 0 72px;
+  padding: 110px 0 88px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(184, 74, 47, 0.35), transparent 55%);
+  pointer-events: none;
 }
 
 .hero-grid {
@@ -148,16 +168,16 @@ button {
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   font-size: 12px;
   color: var(--muted);
   margin-bottom: 12px;
 }
 
 .hero h1 {
-  font-size: clamp(32px, 4vw, 46px);
-  margin-bottom: 16px;
-  font-family: "Manrope", sans-serif;
+  font-size: clamp(34px, 4.2vw, 54px);
+  margin-bottom: 18px;
+  font-family: "Cygre", "Manrope", sans-serif;
 }
 
 .lead {
@@ -172,11 +192,23 @@ button {
 }
 
 .highlight-card {
-  padding: 16px;
-  background: var(--surface);
+  padding: 18px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  box-shadow: var(--glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -30% -50% auto;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(184, 74, 47, 0.35), transparent 65%);
+  opacity: 0.6;
 }
 
 .highlight-title {
@@ -212,11 +244,12 @@ button {
 }
 
 .hero-card {
-  background: var(--surface);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow);
-  max-width: 320px;
+  padding: 28px;
+  box-shadow: var(--glow);
+  max-width: 340px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .hero-card-header {
@@ -244,7 +277,7 @@ button {
 
 .hero-line {
   height: 10px;
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
 }
 
@@ -256,25 +289,26 @@ button {
 
 .btn {
   border-radius: 999px;
-  padding: 12px 20px;
+  padding: 12px 22px;
   font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), #c75b3f);
   color: #fff;
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 30px rgba(184, 74, 47, 0.3);
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 30px rgba(68, 80, 93, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 36px rgba(184, 74, 47, 0.4);
 }
 
 .btn-ghost {
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
 }
 
 .btn-link {
@@ -296,11 +330,11 @@ button {
 .selection-card,
 .doctor-card,
 .contact-card {
-  background: var(--surface);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow);
+  padding: 22px;
+  box-shadow: var(--glow);
 }
 
 .info-card h3,
@@ -326,21 +360,22 @@ button {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;
-  padding: 16px;
+  padding: 18px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: #fff;
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 }
 
 .timeline-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--accent);
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: rgba(184, 74, 47, 0.2);
   color: #fff;
   display: grid;
   place-items: center;
   font-weight: 600;
+  border: 1px solid rgba(184, 74, 47, 0.5);
 }
 
 .how-it-works {
@@ -354,22 +389,23 @@ button {
 }
 
 .how-step {
-  padding: 16px;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-sm);
-  background: #fff;
+  padding: 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .how-number {
   display: inline-flex;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: var(--bg);
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(184, 74, 47, 0.2);
   align-items: center;
   justify-content: center;
   font-weight: 600;
   margin-bottom: 8px;
+  border: 1px solid rgba(184, 74, 47, 0.4);
 }
 
 .selection-card img {
@@ -388,15 +424,16 @@ button {
 
 .filter-bar select {
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
 }
 
 .doctor-card img {
-  border-radius: 16px;
+  border-radius: 18px;
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .doctor-meta {
@@ -422,8 +459,8 @@ button {
 
 .accordion-item {
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: #fff;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .accordion-trigger {
@@ -457,11 +494,11 @@ button {
 }
 
 .checklist-item {
-  padding: 14px 16px;
+  padding: 16px 18px;
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
-  border-radius: var(--radius-sm);
-  background: #fff;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .contact-grid {
@@ -480,9 +517,9 @@ button {
 }
 
 .site-footer {
-  padding: 32px 0 64px;
+  padding: 36px 0 72px;
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .footer-grid {
@@ -502,13 +539,36 @@ button {
   position: fixed;
   right: 16px;
   bottom: 16px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), #c75b3f);
   color: #fff;
   border-radius: 999px;
   padding: 12px 18px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 20px 40px rgba(184, 74, 47, 0.35);
   font-size: 14px;
   z-index: 20;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-card:hover,
+.implant-card:hover,
+.selection-card:hover,
+.doctor-card:hover,
+.timeline-item:hover,
+.accordion-item:hover,
+.checklist-item:hover,
+.highlight-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.25s ease;
 }
 
 @media (min-width: 768px) {
